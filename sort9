@@ -10,7 +10,7 @@ using namespace std;
 
 void Solve()
 {
-    Task("Sort8");
+    Task("Sort9");
 	int n, k, i, m;
 	pt >> n;
 	int* A = new int[n];
