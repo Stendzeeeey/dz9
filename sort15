@@ -1,0 +1,35 @@
+Дано целое число X и текстовый файл c именем FileName. В файле записан набор целых чисел, расположенных в неубывающем порядке. 
+С помощью метода бинарного поиска определить количество вхождений числа X в исходном наборе. Чисел в исходном наборе не более 200.
+
+#include <windows.h>
+#pragma hdrstop
+#include <fstream>
+#include "pt4.h"
+using namespace std;
+
+void Solve()
+{
+    Task("Sort13");
+	string FileName;
+	int n, a[205], i=0, j, k=0, x, l, h, m;
+	fstream f;
+	pt >> FileName;
+	pt >> x;
+	f.open(FileName, ios::in);
+	while (!f.eof())
+	{
+		f >> a[i];
+		i++;
+	}
+	l = 0;
+	h = i;
+	while (l < h)
+	{
+		m = (l + h) / 2;
+		if (a[m] < x)
+			l = m + 1;
+		else h = m;
+	}
+	for (l; a[l] == x; l++) k++;
+	pt << k;
+}
