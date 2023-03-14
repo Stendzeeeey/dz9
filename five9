@@ -1,0 +1,77 @@
+В текстовом файле c именем FN1 даны примеры домашней работы по информатике. в формате: <число>(10)=<число>(<основание системы счисления>) 
+Суть работы состояла в том, что числа из десятичной системы счисления нужно было перевести в другую систему счисления, основание (p, 2<=p<=16) 
+которой указано в скобках. Проверьте домашнюю работу. 
+Результат запишите в выходной файл с именем FN2, после примера укажите '+', если пример решен верно. Все используемые числа в десятичной системе не превосходит 109.
+
+#include <windows.h>
+#pragma hdrstop
+#include "pt4.h"
+#include <string>
+#include<fstream>
+using namespace std;
+
+bool fu(string s ,int d/*,string p2*/){
+    int n=0,c=0,g,i;
+    string p,a,t ;
+  //  ofstream f2;
+   // f2.open(p2,ios::app);
+    for(i=0;s[i]!='(';i++){
+        n=n*10+s[i]-'0';
+        a+=s[i];
+    }
+    a+="(10)=";
+    i++;
+    while(s[i]!='('){
+            i++;
+    }
+    t+="(";
+    for(i++;s[i]!=')';i++){
+        c=c*10+s[i]-'0';
+        t+=s[i];
+    }
+    t+=")";
+   //f2 << n << " "<< c<<" ";
+    while(n>0) {
+        g=n%c;
+        if(g>9){
+            g-=10;
+            p += g + 'A';
+        }else p+=(g+'0');
+        n/=c;
+    }
+    for(int j=p.size()-1;j>=0;j--)a+=p[j];
+    /*a+="(";
+    a+=c+'0';
+    a+=")";*/
+    a+=t;
+  //  f2 << a;
+   // f2<<endl;
+    if(s==a)return(true);
+        else return(0);
+       // f2.close();
+}
+
+void Solve()
+{
+    Task("Five9");
+    string p1,p2,s;
+    bool p;
+    int n=0,m,i,d,c;
+    pt >> p1 >> p2 ;
+    ifstream f1;
+    f1.open(p1,ios::in);
+    ofstream f2;
+    f2.open(p2,ios::out);
+    while (!f1.eof()){
+        f1>>s;
+        d=s.size();
+        p=fu(s,d/*,p2*/);
+        if(!f1.eof()){
+       f2<<s;
+        if(p!=0)f2<<" +";
+        f2<<endl;
+        }
+    }
+    f1.close();
+    f2.close();
+}
